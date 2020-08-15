@@ -109,7 +109,7 @@ In order to create your single button device you can use the following sample fi
 Let's have a look on the file and understand each fieds:
 - name : this is the name your device will have, you will be able to find it by this name in the remote.
 - manufacturer : put the brand of the device you will control here.
-- version : IMPORTANT /!\ /!\ Once a device is first created, its structure is set. If you add new buttons and you want the remote to notice, you will need to delete the device and recreate the device (not convenient) OR just increment the version number. In the future, if you add an item and get frustrated because the remote doens't seems to care, remember this version field. NOTE: you cna not edit or delete a button by incrementing the version, you will need to delete and reload the device.
+- version : IMPORTANT /!\ /!\ Once a device is first created, its structure is set. If you add new buttons and you want the remote to notice, you will need to delete the device and recreate the device (not convenient) OR just increment the version number. In the future, if you add an item and get frustrated because the remote doens't seems to care, remember this version field. NOTE: you can not edit or delete a button by incrementing the version, you will need to delete and reload the device.
 - type : IMPORTANT /!\ /!\ This field is also important, it will drive the way your remote will interpret your device. The problem is that not all features are supported for all devices. For example, if you want to use the channel button, you can't use a light device type, you will need a AVRECEIVER or TV type for example. As a simple way to create, I like to use the AVRECEIVER, you have to make it appears in the remote by activating it in the recipes part (choose SHOW) but it is quite flexible and support most of the interactions.If you see warning lines when you run the device, it is because in this example you didn't declare INPUT buttons while your device is an AVRECEIVER. It doesn't matter but it shows you how neeo reacts. You can dive into the neeo SDK in order to better understand the limitation of each device (note that the documentation is incomplete).
 The type you can choose from are: ACCESSORY, AUDIO, AVRECEIVER, DVB (aka. satellite receiver), DVD (aka. disc player), GAMECONSOLE, HDMISWITCH, LIGHT, MEDIAPLAYER, MUSICPLAYER, PROJECTOR, TUNER, TV, VOD (aka. Video-On-Demand box like Apple TV, Fire TV...), SOUNDBAR.
 - buttons : You have here the list of the buttons. The name can be any name and you can change the display name in the "label" attribute. Some buttons are recognised by the remote control. It is specially handy if you want to map a feature to an hardware button like the cursor. In this example, you can use the cursor arows of the remote directly.
@@ -253,7 +253,7 @@ We don't want to deal with that. We need only to now what is inside the msg part
 To simplify it we will filter using jpath (or jsonpath). 
 Please have a look at this: https://github.com/dchester/jsonpath
 It explains how to filter using jpath.
-In our case, the jpath is "$.msg". When applied to the json quoted before, it return.... success. Which is exactly what we want.
+In our case, the jpath is "$.msg". When applied to the json quoted before, it returns.... 'success'. Which is exactly what we want.
 In order to create a jpath yourself (it can be complexe, especially for example with a complex json like the brain), I strongly advice you to use an online evaluator: https://jsonpath.com/ (for example, there are many).
 You copy your json returned in your browser, and aplly your path.
 
@@ -266,8 +266,8 @@ What we will assign is :
 This command looks a bit weird so let's have a closer look at it.
 We first have DYNAMIK. DYNAMIK is our friend asking the dirver to interpret the string as javascript.
 then lets have a look at the first part into brakets:
-We are comparing to strings. Inside a DYNAMIK field, strings are always between 2 \". Why? Because we need to know the " is not a json one but part of the field, so we exit it as an external caracter. So as a conclusion, \"$Result\" means 'I want what is inside $Result and compare it as a string'. So we wnat to compare it to \"success\". The way to compare is '=='. It means, is it equal ? As you remember the normal resul of the command should be 'success' so in this case, if the command works well, it will indeed be equal.
-Going back to the global field, you can see it globally look likes that: atest ? something : somethingelse. As you remember, on the left side of the question mark is a condition, is success equal to success. Yes it is, so the result will be true. If it is true, the something will be chosen, if the result is false, the something else would be chosen. The test you can use are ==, <=, >=, <, >, != (not equal), and many others.
+We are comparing to strings. Inside a DYNAMIK field, strings are always between 2 \". Why? Because we need to know the " is not a json one but part of the field, so we exit it as an external character. So as a conclusion, \"$Result\" means 'I want what is inside $Result and compare it as a string'. So we want to compare it to \"success\". The way to compare is '=='. It means, is it equal ? As you remember the normal result of the command should be 'success' so in this case, if the command works well, it will indeed be equal.
+Going back to the global field, you can see it globally look likes that: a test ? something : somethingelse. As you remember, on the left side of the question mark is a condition, is success equal to success. Yes it is, so the result will be true. If it is true, the something will be chosen, if the result is false, the something else would be chosen. The test you can use are ==, <=, >=, <, >, != (not equal), and many others.
 So basically as you start to understand, if the command return success, we will diplay Left pressed, if not, command failed.
 
 Ok, we are all set for the second part of this tuto step.
@@ -295,7 +295,7 @@ Let's analyse these somewhat cryptic lines:
 }
 ```
 A Directory is basically a button calling a list. In this case, we will have one buttton, programs.
-Then we have feeders. A feeder basically feed the list with data. In the feeder we decide what to feed and how to display (listitem and tile for example). Finally we have also a special feeder for action to be done. Multiple feeders allow navigation among feeders. For example as you see in the volumio demo. (it frankly quite a nightmare to code but hey!, in the meta it is done for you :-).  
+Then we have feeders. A feeder basically feed the list with data. In the feeder we decide what to feed and how to display (listitem and title for example). Finally we have also a special feeder for action to be done. Multiple feeders allow navigation among feeders. For example as you see in the volumio demo. (it frankly quite a nightmare to code but hey!, in the meta it is done for you :-).  
 In this example we have 2 feeders, one to display the program, another to perform an action.
 The first feeder (called programs also) trigger a command returning a gigantic JSON (cut here in order to save place)
 ```
